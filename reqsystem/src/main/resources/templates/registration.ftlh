@@ -3,7 +3,7 @@
 
 <!-- Страница регистрации -->
 <@c.page>
-<div class="mb-1">Add new user</div>
+    <div class="mb-3"><h2>Add new user</h2></div>
 ${message!""}
 <@l.login "/registration" true />
 </@c.page>

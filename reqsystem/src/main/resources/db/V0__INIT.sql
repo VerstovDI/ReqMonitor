@@ -5,8 +5,9 @@ create schema system_control_requirements;
 drop table if exists user_role cascade;
 drop table if exists usr cascade;
 
+-- Начинаем последовательность с 2, т.к. под id = 1 уже захардкожен админ
 drop sequence if exists system_control_requirements.hibernate_sequence;
-create sequence system_control_requirements.hibernate_sequence start 1 increment 1;
+create sequence system_control_requirements.hibernate_sequence start 2 increment 1;
 
 CREATE TABLE system_control_requirements.user_role (
                            user_id int8 not null,
