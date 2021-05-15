@@ -2,6 +2,7 @@
 <#import "parts/login.ftlh" as l>
 
 <!-- Страница логина -->
+
 <@c.page>
     <#if Session?? && Session.SPRING_SECURITY_LAST_EXCEPTION??>
         <div class="alert alert-danger" role="alert">

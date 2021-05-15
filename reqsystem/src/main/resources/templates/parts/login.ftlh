@@ -1,6 +1,7 @@
 <#include "security.ftlh">
 
 <#macro login path isRegisterForm>
+
     <form action="${path}" method="post">
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Username:</label>
@@ -22,7 +23,7 @@
             <div class="col-sm-6">
                 <input type="text" name="password"
                        class="form-control ${(passwordError??)?string('is-invalid','')}"
-                       placeholder="Password" />
+                       placeholder="Password"/>
                 <#if passwordError??>
                     <div class="invalid-feedback">
                         ${passwordError}
@@ -37,7 +38,7 @@
                 <div class="col-sm-6">
                     <input type="text" name="password2"
                            class="form-control ${(password2Error??)?string('is-invalid','')}"
-                           placeholder="Retype password" />
+                           placeholder="Retype password"/>
                     <#if password2Error??>
                         <div class="invalid-feedback">
                             ${password2Error}
@@ -47,26 +48,29 @@
             </div>
         </#if>
 
-        <input type="hidden" name="_csrf" value="${_csrf.token}" />
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <br>
         <#if !isRegisterForm>
             <div>
                 <a class="btn btn-primary mb-3"
-                        type="submit"
-                        href="/registration">
+                   type="submit"
+                   href="/registration">
                     Sign Up
                 </a>
             </div>
-        </#if>
+            <div>
+                <button class="btn btn-primary mb-3"
+                   type="submit">
+                    Sign In
+                </button>
+            </div>
+        <#else>
         <div>
             <button class="btn btn-primary" type="submit">
-                <#if isRegisterForm>
-                    Sign Up
-                <#else>
-                    Sign In
-                </#if>
+            Sign Up
             </button>
         </div>
+        </#if>
     </form>
 </#macro>
 
@@ -77,7 +81,7 @@
                 <#if user??>
                     Sign Out
                 <#else>
-                    Sign in
+                    Sign in/Sign up
                 </#if>
             </button>
         </div>

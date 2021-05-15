@@ -13,7 +13,8 @@ import java.util.Set;
 @Table(name = "usr", schema = "system_control_requirements")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO,
+                    generator = "system_control_requirements.hibernate_sequence")
     private Long id;
 
     @NotBlank(message = "Username can't be empty!")

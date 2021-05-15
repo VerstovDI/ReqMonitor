@@ -64,6 +64,9 @@ public class RegistrationController {
             model.addAttribute("usernameError", "User already exists!");
             return "registration";
         }
+
+        model.addAttribute("isRegisterForm", true);
+
         return "redirect:/login";
     }
 

@@ -2,7 +2,7 @@
 <#import "login.ftlh" as l>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">ReqSystem</a>
+    <a class="navbar-brand" href="/"><b>ReqSystem</b></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -25,6 +25,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/user">User list</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin-monitor">Admin monitor</a>
+                </li>
             </#if>
             <#if user?? && name!="unknown" && name != "Guest">
                 <li class="nav-item">
@@ -42,7 +45,9 @@
         <#if user??>
             <@l.logout/>
         <#else>
-            <a href="http://localhost:8080/login" class="btn btn-primary" role="button" aria-pressed="true">Sign In</a>
+            <a href="http://localhost:8080/login" class="btn btn-primary" role="button" aria-pressed="true">
+                Sign In/Sign up
+            </a>
         </#if>
     </div>
 </nav>
