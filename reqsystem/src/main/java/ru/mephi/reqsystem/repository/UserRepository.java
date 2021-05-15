@@ -1,7 +1,7 @@
 package ru.mephi.reqsystem.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.mephi.reqsystem.domain.User;
+import ru.mephi.reqsystem.domain.administration.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 

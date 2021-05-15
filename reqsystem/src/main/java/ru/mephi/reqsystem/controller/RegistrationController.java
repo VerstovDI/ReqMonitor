@@ -8,7 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.mephi.reqsystem.domain.User;
+import ru.mephi.reqsystem.domain.administration.User;
 import ru.mephi.reqsystem.service.UserService;
 
 import javax.validation.Valid;

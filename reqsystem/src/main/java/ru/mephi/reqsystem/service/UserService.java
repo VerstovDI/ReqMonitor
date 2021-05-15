@@ -7,9 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import ru.mephi.reqsystem.config.WebSecurityConfig;
-import ru.mephi.reqsystem.domain.Role;
-import ru.mephi.reqsystem.domain.User;
+import ru.mephi.reqsystem.domain.administration.Role;
+import ru.mephi.reqsystem.domain.administration.User;
 import ru.mephi.reqsystem.repository.UserRepository;
 
 import java.util.*;

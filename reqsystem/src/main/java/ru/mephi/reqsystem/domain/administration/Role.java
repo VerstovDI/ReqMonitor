@@ -1,4 +1,4 @@
-package ru.mephi.reqsystem.domain;
+package ru.mephi.reqsystem.domain.administration;
 
 import org.springframework.security.core.GrantedAuthority;
 

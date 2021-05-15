@@ -6,8 +6,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.mephi.reqsystem.domain.Role;
-import ru.mephi.reqsystem.domain.User;
+import ru.mephi.reqsystem.domain.administration.Role;
+import ru.mephi.reqsystem.domain.administration.User;
 import ru.mephi.reqsystem.service.UserService;
 
 import java.util.Map;
