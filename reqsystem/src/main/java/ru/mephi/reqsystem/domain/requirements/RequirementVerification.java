@@ -18,7 +18,7 @@ public class RequirementVerification {
     private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "vt_pk")
+    @JoinColumn(name = "vrf_vt_fk")
     private RequirementVerificationType requirementVerificationType;
 
     public RequirementVerification() {

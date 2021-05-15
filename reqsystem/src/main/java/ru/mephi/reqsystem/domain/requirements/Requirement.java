@@ -44,19 +44,19 @@ public class Requirement {
     private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rel_pk")
+    @JoinColumn(name = "req_rel_fk")
     private Release release;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vrf_pk")
+    @JoinColumn(name = "req_vrf_fk")
     private RequirementVerification requirementVerification;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pr_pk")
+    @JoinColumn(name = " req_pr_fk")
     private RequirementPriority requirementPriority;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "st_pk")
+    @JoinColumn(name = "req_st_fk")
     private RequirementStatus requirementStatus;
 
     public Requirement() {

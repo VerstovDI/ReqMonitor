@@ -13,7 +13,7 @@ public class RequirementLinkType {
     private Long id;
 
     @NotBlank(message = "name cannot be empty")
-    @Column(name = "co_name")
+    @Column(name = "lt_name")
     private String name;
 
     public RequirementLinkType() {

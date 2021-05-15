@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface RequirementVerificationRepository extends JpaRepository<RequirementVerification, Long> {
-    List<RequirementVerification> findAllByType(String type);
+    List<RequirementVerification> findAllByRequirementVerificationType(String type);
 
     List<RequirementVerification> findAllByDate(Date date);
 }

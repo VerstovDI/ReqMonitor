@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Release {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "rel_pk")
+    @Column(name = "rel_pk", columnDefinition = "serial")
     private Long id;
 
     @NotBlank(message = "version cannot be empty")
@@ -21,7 +21,7 @@ public class Release {
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "spc_pk")
+    @JoinColumn(name = "rel_spc_fk")
     private Specification specification;
 
     public Release() {

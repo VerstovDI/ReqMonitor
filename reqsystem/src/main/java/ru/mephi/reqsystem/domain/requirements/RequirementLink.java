@@ -17,15 +17,15 @@ public class RequirementLink {
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lt_pk")
+    @JoinColumn(name = "rl_lt_fk")
     private RequirementLinkType requirementLinkType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "req_pk",insertable = false, updatable = false)
+    @JoinColumn(name = "rl_req_root_fk",insertable = false, updatable = false)
     private Requirement rootRequirement;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "req_pk",insertable = false, updatable = false)
+    @JoinColumn(name = "rl_req_child_fk",insertable = false, updatable = false)
     private Requirement childRequirement;
 
     public RequirementLink() {

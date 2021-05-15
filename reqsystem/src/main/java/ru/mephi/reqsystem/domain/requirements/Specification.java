@@ -21,7 +21,7 @@ public class Specification {
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "prj_pk")
+    @JoinColumn(name = "spc_prj_fk")
     private Project project;
 
     public Specification() {

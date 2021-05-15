@@ -70,7 +70,7 @@ CREATE TABLE system_control_requirements.t_projects
 CREATE TABLE system_control_requirements.t_specifications
 (
     spc_pk			serial,
-    spc_prj_fk 		integer,
+    spc_prj_fk 		BIGINT,
     spc_ver			integer,
     spc_desc		varchar(255),
     PRIMARY KEY (spc_pk),
@@ -80,7 +80,7 @@ CREATE TABLE system_control_requirements.t_specifications
 CREATE TABLE system_control_requirements.t_releases
 (
     rel_pk			serial,
-    rel_spc_fk		integer,
+    rel_spc_fk		BIGINT,
     rel_ver			integer,
     rel_desc		varchar(255),
     PRIMARY KEY (rel_pk),
@@ -90,7 +90,7 @@ CREATE TABLE system_control_requirements.t_releases
 CREATE TABLE system_control_requirements.t_verification
 (
     vrf_pk			serial,
-    vrf_vt_fk		integer,
+    vrf_vt_fk		BIGINT,
     vrf_date		TIMESTAMP,
     PRIMARY KEY (vrf_pk),
     FOREIGN KEY (vrf_vt_fk) REFERENCES system_control_requirements.tcl_verification_type (vt_pk)
@@ -99,10 +99,10 @@ CREATE TABLE system_control_requirements.t_verification
 CREATE TABLE system_control_requirements.t_requirements
 (
     req_pk			serial,
-    req_rel_fk		integer,
-    req_vrf_fk		integer,
-    req_pr_fk		integer,
-    req_st_fk		integer,
+    req_rel_fk		BIGINT,
+    req_vrf_fk		BIGINT,
+    req_pr_fk		BIGINT,
+    req_st_fk		BIGINT,
     req_title		varchar(255),
     req_art_type	varchar(255),
     req_s_desc		varchar(255),
@@ -120,9 +120,9 @@ CREATE TABLE system_control_requirements.t_requirements
 CREATE TABLE system_control_requirements.t_requirement_links
 (
     rl_pk			serial,
-    rl_lt_fk		integer,
-    rl_req_root_fk		integer,
-    rl_req_child_fk		integer,
+    rl_lt_fk		BIGINT,
+    rl_req_root_fk		BIGINT,
+    rl_req_child_fk		BIGINT,
     rl_desc			varchar(255),
     PRIMARY KEY (rl_pk),
     FOREIGN KEY (rl_lt_fk) REFERENCES system_control_requirements.tcl_link_type (lt_pk),
