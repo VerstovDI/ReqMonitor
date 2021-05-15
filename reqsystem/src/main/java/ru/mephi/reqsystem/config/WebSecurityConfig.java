@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import ru.mephi.reqsystem.service.UserService;
 
 @Configuration
@@ -30,16 +31,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/registration", "/static/**", "/activate/*").permitAll()
                 .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/main", true)
-                .permitAll()
-                .and()
-                .rememberMe()
-                .and()
-                .logout()
-                .permitAll();
+                    .and()
+                        .formLogin()
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/main", true)
+                        .permitAll()
+                    .and()
+                        .rememberMe()
+                    .and()
+                        .logout()
+                        .permitAll()
+                    .and()
+                        .httpBasic()
+                    .and()
+                        .csrf()
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                        .ignoringAntMatchers("/instances", "/actuator/**");
     }
 
     @Override

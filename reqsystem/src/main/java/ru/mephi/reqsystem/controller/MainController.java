@@ -3,6 +3,7 @@ package ru.mephi.reqsystem.controller;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,6 +44,12 @@ public class MainController {
         model.addAttribute("filter", filter);
         return "main";
     }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/admin-monitor")
+    public String adminMonitor(@AuthenticationPrincipal User user) {
+        return "redirect:http://localhost:8080/actuator";
+    };
 
     /*@PostMapping("/main")
     public String add(

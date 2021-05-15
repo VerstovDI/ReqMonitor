@@ -25,6 +25,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/user">User list</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin-monitor">Admin monitor</a>
+                </li>
             </#if>
             <#if user?? && name!="unknown" && name != "Guest">
                 <li class="nav-item">
