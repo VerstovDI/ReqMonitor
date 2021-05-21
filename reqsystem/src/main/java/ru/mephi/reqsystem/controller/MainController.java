@@ -1,22 +1,12 @@
 package ru.mephi.reqsystem.controller;
 
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import ru.mephi.reqsystem.domain.User;
-
-import javax.validation.Valid;
-import java.io.IOException;
-import java.util.Map;
+import ru.mephi.reqsystem.domain.administration.User;
 
 /**
  * Основной контроллер, обслуживающий главную страницу приложения.
@@ -43,6 +33,18 @@ public class MainController {
         model.addAttribute("url", "/main");
         model.addAttribute("filter", filter);
         return "main";
+    }
+
+    //Страница для работы с требованиями
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/requirements")
+    public String requirements(@RequestParam(required = false, defaultValue = "") String filter,
+                       Model model,
+                       @AuthenticationPrincipal User user) {
+        model.addAttribute("something", "Hello, again!");
+        model.addAttribute("url", "/main");
+        model.addAttribute("filter", filter);
+        return "requirements";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
