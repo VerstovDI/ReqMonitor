@@ -27,6 +27,12 @@ public class Release {
     public Release() {
     }
 
+    public Release(@NotBlank(message = "version cannot be empty") Integer version, @NotBlank(message = "description cannot be empty") String description, Specification specification) {
+        this.version = version;
+        this.description = description;
+        this.specification = specification;
+    }
+
     public Long getId() {
         return id;
     }

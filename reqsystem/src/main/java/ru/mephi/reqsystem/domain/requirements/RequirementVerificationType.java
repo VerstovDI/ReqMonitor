@@ -8,7 +8,7 @@ import java.util.Objects;
 @Table(name = "tcl_verification_type", schema = "system_control_requirements")
 public class RequirementVerificationType {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vt_pk", columnDefinition = "serial")
     private Long id;
 

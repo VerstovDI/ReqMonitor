@@ -30,6 +30,8 @@ CREATE TABLE system_control_requirements.tcl_status
     st_name		varchar(255),
     PRIMARY KEY (st_pk)
 );
+insert into system_control_requirements.tcl_status (st_pk, st_name)
+values (default, 'begin');
 
 CREATE TABLE system_control_requirements.tcl_priority
 (
@@ -37,6 +39,8 @@ CREATE TABLE system_control_requirements.tcl_priority
     pr_name		varchar(255),
     PRIMARY KEY (pr_pk)
 );
+insert into system_control_requirements.tcl_priority (pr_pk, pr_name)
+values (default, 'high');
 
 CREATE TABLE system_control_requirements.tcl_link_type
 (
@@ -58,6 +62,8 @@ CREATE TABLE system_control_requirements.tcl_verification_type
     vt_name		varchar(255),
     PRIMARY KEY (vt_pk)
 );
+insert into system_control_requirements.tcl_verification_type ( vt_pk,  vt_name)
+values (default, 'non verified');
 
 CREATE TABLE system_control_requirements.t_projects
 (
@@ -67,6 +73,9 @@ CREATE TABLE system_control_requirements.t_projects
     prj_founder	varchar(255),
     PRIMARY KEY (prj_pk)
 );
+insert into system_control_requirements.t_projects (  prj_pk,  prj_name,prj_date,prj_founder	)
+values (default, 'first project','2021-05-24 10:00:00-00','Aidar'),
+ (default, 'second project','2021-05-24 11:00:00-00','Aidar');
 
 CREATE TABLE system_control_requirements.t_specifications
 (
@@ -77,6 +86,9 @@ CREATE TABLE system_control_requirements.t_specifications
     PRIMARY KEY (spc_pk),
     FOREIGN KEY (spc_prj_fk) REFERENCES system_control_requirements.t_projects (prj_pk)
 );
+insert into system_control_requirements.t_specifications (  spc_pk,  spc_prj_fk, spc_ver,spc_desc)
+values (default, 1,1,'First specification'),
+ (default, 2,1,'Second specification');
 
 CREATE TABLE system_control_requirements.t_releases
 (
@@ -87,6 +99,9 @@ CREATE TABLE system_control_requirements.t_releases
     PRIMARY KEY (rel_pk),
     FOREIGN KEY (rel_spc_fk) REFERENCES system_control_requirements.t_specifications (spc_pk)
 );
+insert into system_control_requirements.t_releases (  rel_pk,   rel_spc_fk	, rel_ver,rel_desc)
+values (default, 1,1,1,'First specification release'),
+ (default, 2,1,1,'Second specification release');
 
 CREATE TABLE system_control_requirements.t_verification
 (
@@ -96,6 +111,8 @@ CREATE TABLE system_control_requirements.t_verification
     PRIMARY KEY (vrf_pk),
     FOREIGN KEY (vrf_vt_fk) REFERENCES system_control_requirements.tcl_verification_type (vt_pk)
 );
+insert into system_control_requirements.t_verification (  vrf_pk,  vrf_vt_fk,vrf_date)
+values (default, 1,'2021-05-25 19:10:25-07');
 
 CREATE TABLE system_control_requirements.t_requirements
 (

@@ -1,16 +1,22 @@
 package ru.mephi.reqsystem.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import ru.mephi.reqsystem.domain.administration.Role;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.mephi.reqsystem.domain.administration.User;
-import ru.mephi.reqsystem.domain.requirements.Requirement;
+import ru.mephi.reqsystem.domain.requirements.*;
+import ru.mephi.reqsystem.repository.requirements.*;
 import ru.mephi.reqsystem.service.RequirementService;
-import ru.mephi.reqsystem.service.UserService;
+
+import java.sql.Time;
+import java.util.Date;
 
 /**
  * Контроллер для работы с требованиями.
@@ -19,10 +25,22 @@ import ru.mephi.reqsystem.service.UserService;
 @RequestMapping("/requirements")
 public class ReqController {
     private final RequirementService requirementService;
+    private final ReleaseRepository releaseRepository;
+    private final SpecificationRepository specificationRepository;
+    private final RequirementVerificationRepository requirementVerificationRepository;
+    private final RequirementPriorityRepository requirementPriorityRepository;
+    private final RequirementStatusRepository requirementStatusRepository;
+    Logger logger = LogManager.getLogger(ReqController.class);
 
     @Autowired
-    public ReqController(RequirementService requirementService) {
+    public ReqController(RequirementService requirementService, ReleaseRepository releaseRepository
+            , SpecificationRepository specificationRepository, RequirementVerificationRepository requirementVerificationRepository, RequirementPriorityRepository requirementPriorityRepository, RequirementStatusRepository requirementStatusRepository) {
         this.requirementService = requirementService;
+        this.releaseRepository = releaseRepository;
+        this.specificationRepository = specificationRepository;
+        this.requirementVerificationRepository = requirementVerificationRepository;
+        this.requirementPriorityRepository = requirementPriorityRepository;
+        this.requirementStatusRepository = requirementStatusRepository;
     }
     // Тут подвязываем требуемые сервисы, репозитории и т.д.
 
@@ -41,15 +59,42 @@ public class ReqController {
     }
 
     //TODO смотреть login /RegistrtionContoller
-    @PostMapping("/add")
-    public String addRequirement (
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/addReq")
+    public String addRequirement(
             @AuthenticationPrincipal User user,
-            @RequestParam String title,
-            @RequestParam String art_type,
-            @RequestParam String description
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "artType") String artType,
+            @RequestParam(name = "description") String description,
+            @RequestParam(name = "loc") String loc,
+            @RequestParam(name = "origin")  String origin,
+            @RequestParam(name = "limitTime") String limitTimeString,
+            Model model
+
     ) {
-        //userService.updateProfile(user, password);
+        String[] splitTime = limitTimeString.split(":");
+        Time limitTime = new Time(Integer.parseInt(splitTime[0]),Integer.parseInt(splitTime[1]),0);
+    Date date=new Date();
+    Release release=releaseRepository.findById(1l).orElse(new Release(0,"Empty release"
+            ,specificationRepository.findById(1l).get()));
+        RequirementVerification requirementVerification = requirementVerificationRepository
+                .findById(1l).get();
+        RequirementPriority requirementPriority =requirementPriorityRepository.findById(1l).get();
+        RequirementStatus requirementStatus=requirementStatusRepository.findById(1l).get();
+        boolean savingStatus = requirementService.addRequirement(new Requirement(title, artType, description, limitTime, loc, origin
+                , date, release, requirementVerification, requirementPriority, requirementStatus));
         return "redirect:/requirements";
     }
 
+    /*    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/addReq")
+    public String addRequirement (
+            @AuthenticationPrincipal User user
+
+    ) {
+        logger.info("I get post request ");
+        //userService.updateProfile(user, password);
+        return "redirect:/";
+    }
+         */
 }

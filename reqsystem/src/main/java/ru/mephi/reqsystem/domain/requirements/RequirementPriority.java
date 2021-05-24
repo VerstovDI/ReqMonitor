@@ -8,7 +8,7 @@ import java.util.Objects;
 @Table(name = "tcl_priority", schema = "system_control_requirements")
 public class RequirementPriority {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pr_pk", columnDefinition = "serial")
     private Long id;
 

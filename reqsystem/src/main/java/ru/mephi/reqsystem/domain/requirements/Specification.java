@@ -8,7 +8,7 @@ import java.util.Objects;
 @Table(name = "t_specifications", schema = "system_control_requirements")
 public class Specification {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "spc_pk", columnDefinition = "serial")
     private Long id;
 

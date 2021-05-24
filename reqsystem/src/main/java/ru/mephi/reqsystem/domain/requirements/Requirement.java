@@ -2,6 +2,7 @@ package ru.mephi.reqsystem.domain.requirements;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Time;
 import java.util.Date;
 import java.util.Objects;
@@ -10,7 +11,7 @@ import java.util.Objects;
 @Table(name = "t_requirements", schema = "system_control_requirements")
 public class Requirement {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "req_pk", columnDefinition = "serial")
     private Long id;
 
@@ -20,13 +21,13 @@ public class Requirement {
 
     @NotBlank(message = "art_type cannot be empty")
     @Column(name = "req_art_type")
-    private String art_type;
+    private String artType;
 
     @NotBlank(message = "description cannot be empty")
     @Column(name = "req_s_desc")
     private String description;
 
-    @NotBlank(message = "limit time cannot be empty")
+    @NotNull
     @Column(name = "req_lim_t")
     private Time limitTime;
 
@@ -39,7 +40,7 @@ public class Requirement {
     @Column(name = "req_origin")
     private String origin;
 
-    @NotBlank(message = "date cannot be empty")
+    @NotNull(message = "date cannot be empty")
     @Column(name = "req_date")
     private Date date;
 
@@ -62,6 +63,24 @@ public class Requirement {
     public Requirement() {
     }
 
+    public Requirement(@NotBlank(message = "title cannot be empty") String title, @NotBlank(message = "art_type cannot be empty") String artType,
+                       @NotBlank(message = "description cannot be empty") String description, @NotNull Time limitTime,
+                       @NotBlank(message = "loc cannot be empty") String loc, @NotBlank(message = "origin cannot be empty") String origin,
+                       @NotNull(message = "date cannot be empty") Date date, Release release, RequirementVerification requirementVerification,
+                       RequirementPriority requirementPriority, RequirementStatus requirementStatus) {
+        this.title = title;
+        this.artType = artType;
+        this.description = description;
+        this.limitTime = limitTime;
+        this.loc = loc;
+        this.origin = origin;
+        this.date = date;
+        this.release = release;
+        this.requirementVerification = requirementVerification;
+        this.requirementPriority = requirementPriority;
+        this.requirementStatus = requirementStatus;
+    }
+
     public Long getId() {
         return id;
     }
@@ -78,12 +97,12 @@ public class Requirement {
         this.title = title;
     }
 
-    public String getArt_type() {
-        return art_type;
+    public String getArtType() {
+        return artType;
     }
 
-    public void setArt_type(String art_type) {
-        this.art_type = art_type;
+    public void setArtType(String artType) {
+        this.artType = artType;
     }
 
     public String getDescription() {
@@ -163,12 +182,12 @@ public class Requirement {
         if (this == o) return true;
         if (!(o instanceof Requirement)) return false;
         Requirement that = (Requirement) o;
-        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(art_type, that.art_type) && Objects.equals(description, that.description) && Objects.equals(limitTime, that.limitTime) && Objects.equals(loc, that.loc) && Objects.equals(origin, that.origin) && Objects.equals(date, that.date) && Objects.equals(release, that.release) && Objects.equals(requirementVerification, that.requirementVerification) && Objects.equals(requirementPriority, that.requirementPriority) && Objects.equals(requirementStatus, that.requirementStatus);
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(artType, that.artType) && Objects.equals(description, that.description) && Objects.equals(limitTime, that.limitTime) && Objects.equals(loc, that.loc) && Objects.equals(origin, that.origin) && Objects.equals(date, that.date) && Objects.equals(release, that.release) && Objects.equals(requirementVerification, that.requirementVerification) && Objects.equals(requirementPriority, that.requirementPriority) && Objects.equals(requirementStatus, that.requirementStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, art_type, description, limitTime, loc, origin, date, release, requirementVerification, requirementPriority, requirementStatus);
+        return Objects.hash(id, title, artType, description, limitTime, loc, origin, date, release, requirementVerification, requirementPriority, requirementStatus);
     }
 
     @Override
@@ -176,7 +195,7 @@ public class Requirement {
         return "Requirement{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", art_type='" + art_type + '\'' +
+                ", art_type='" + artType + '\'' +
                 ", description='" + description + '\'' +
                 ", limitTime=" + limitTime +
                 ", loc='" + loc + '\'' +
