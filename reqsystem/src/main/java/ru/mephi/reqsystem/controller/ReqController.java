@@ -86,7 +86,8 @@ public class ReqController {
         return "redirect:/requirements";
     }
 
-    /*    @PreAuthorize("isAuthenticated()")
+
+    /*    @PreAuthorize("isAuthenticated()")    TODO не распознает маппинг
     @PostMapping("/addReq")
     public String addRequirement (
             @AuthenticationPrincipal User user
