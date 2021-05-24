@@ -75,7 +75,7 @@ CREATE TABLE system_control_requirements.t_projects
 );
 insert into system_control_requirements.t_projects (  prj_pk,  prj_name,prj_date,prj_founder	)
 values (default, 'first project','2021-05-24 10:00:00-00','Aidar'),
- (default, 'second project','2021-05-24 11:00:00-00','Aidar');
+       (default, 'second project','2021-05-24 11:00:00-00','Aidar');
 
 CREATE TABLE system_control_requirements.t_specifications
 (
@@ -88,7 +88,7 @@ CREATE TABLE system_control_requirements.t_specifications
 );
 insert into system_control_requirements.t_specifications (  spc_pk,  spc_prj_fk, spc_ver,spc_desc)
 values (default, 1,1,'First specification'),
- (default, 2,1,'Second specification');
+       (default, 2,1,'Second specification');
 
 CREATE TABLE system_control_requirements.t_releases
 (
@@ -99,9 +99,9 @@ CREATE TABLE system_control_requirements.t_releases
     PRIMARY KEY (rel_pk),
     FOREIGN KEY (rel_spc_fk) REFERENCES system_control_requirements.t_specifications (spc_pk)
 );
-insert into system_control_requirements.t_releases (  rel_pk,   rel_spc_fk	, rel_ver,rel_desc)
-values (default, 1,1,1,'First specification release'),
- (default, 2,1,1,'Second specification release');
+insert into system_control_requirements.t_releases (  rel_pk,   rel_spc_fk, rel_ver,rel_desc)
+values (default, 1,1,'First specification release'),Ф
+(default, 2,1,'Second specification release');
 
 CREATE TABLE system_control_requirements.t_verification
 (
