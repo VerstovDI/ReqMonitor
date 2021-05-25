@@ -2,6 +2,7 @@ package ru.mephi.reqsystem.domain.requirements;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ public class RequirementVerification {
     @Column(name = "vrf_pk", columnDefinition = "serial")
     private Long id;
 
-    @NotBlank(message = "Date cannot be empty")
+    @NotNull(message = "Date cannot be empty")
     @Column(name = "vrf_date")
     private Date date;
 

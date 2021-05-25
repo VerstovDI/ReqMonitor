@@ -28,7 +28,7 @@ public class RequirementVerificationService {
             nonVerified=new RequirementVerificationType("non verified");
             nonVerified=requirementVerificationTypeRepository.save(nonVerified);
         }
-        if(requirementVerificationRepository.findAllByRequirementVerificationTypeAndRequirement(nonVerified,requirement).isEmpty()){
+        if(!requirementVerificationRepository.findAllByRequirementVerificationTypeAndRequirement(nonVerified,requirement).isEmpty()){
             return false;
         }
         RequirementVerification requirementVerification = new RequirementVerification(new Date(), nonVerified, requirement);
