@@ -98,6 +98,16 @@
             </select>
         </div>
 
+        <div>
+            <h7>Requirement Priority: </h7>
+        </div>
+        <div class="form-group row">
+            <select class="custom-select col-md-12-sm-6" name="requirementPriority">
+                <#list requirementPriorities! as requirementPriority>
+                    <option value="${requirementPriority.id}">${requirementPriority.name}</option>
+                </#list>
+            </select>
+        </div>
 
 
         <input type="submit" value="Submit">

@@ -30,8 +30,7 @@ CREATE TABLE system_control_requirements.tcl_status
     st_name		varchar(255),
     PRIMARY KEY (st_pk)
 );
-insert into system_control_requirements.tcl_status (st_pk, st_name)
-values (default, 'begin');
+
 
 CREATE TABLE system_control_requirements.tcl_priority
 (
@@ -40,7 +39,9 @@ CREATE TABLE system_control_requirements.tcl_priority
     PRIMARY KEY (pr_pk)
 );
 insert into system_control_requirements.tcl_priority (pr_pk, pr_name)
-values (default, 'high');
+values (default, 'high'),
+       (default, 'middle'),
+       (default, 'low');
 
 CREATE TABLE system_control_requirements.tcl_link_type
 (

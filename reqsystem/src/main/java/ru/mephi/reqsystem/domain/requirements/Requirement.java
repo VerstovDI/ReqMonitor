@@ -53,7 +53,7 @@ public class Requirement {
     private Set<RequirementVerification> requirementVerifications;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = " req_pr_fk")
+    @JoinColumn(name = "req_pr_fk")
     private RequirementPriority requirementPriority;
 
     @ManyToOne(fetch = FetchType.EAGER)
