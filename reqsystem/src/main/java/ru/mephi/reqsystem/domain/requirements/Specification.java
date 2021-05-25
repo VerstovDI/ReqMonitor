@@ -20,7 +20,7 @@ public class Specification {
     @Column(name = "spc_desc")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "spc_prj_fk")
     private Project project;
 

@@ -44,19 +44,19 @@ public class Requirement {
     @Column(name = "req_date")
     private Date date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "req_rel_fk")
     private Release release;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "req_vrf_fk")
     private RequirementVerification requirementVerification;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = " req_pr_fk")
     private RequirementPriority requirementPriority;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "req_st_fk")
     private RequirementStatus requirementStatus;
 

@@ -85,6 +85,12 @@
         </div>
     </div>
 
+    <select class="custom-select col-md-2" name="selectedRelease">
+        <#list releases! as release>
+            <option value="${release.id}">${release.version},${release.description},${release.specification.description},${release.specification.version}</option>
+        </#list>
+    </select>
+
     <input type="submit" value="Submit">
 
 </form>

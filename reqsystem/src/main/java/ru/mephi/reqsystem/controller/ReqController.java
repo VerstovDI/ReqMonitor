@@ -53,6 +53,7 @@ public class ReqController {
     public String requirements(@RequestParam(required = false, defaultValue = "") String filter,
                                Model model,
                                @AuthenticationPrincipal User user) {
+        model.addAttribute("releases",releaseRepository.findAll());
         model.addAttribute("url", "/requirements/add");
         model.addAttribute("filter", filter);
         return "requirementsAdd";
@@ -69,14 +70,13 @@ public class ReqController {
             @RequestParam(name = "loc") String loc,
             @RequestParam(name = "origin")  String origin,
             @RequestParam(name = "limitTime") String limitTimeString,
+            @RequestParam(name = "selectedRelease") Release release,
             Model model
 
     ) {
         String[] splitTime = limitTimeString.split(":");
         Time limitTime = new Time(Integer.parseInt(splitTime[0]),Integer.parseInt(splitTime[1]),0);
     Date date=new Date();
-    Release release=releaseRepository.findById(1l).orElse(new Release(0,"Empty release"
-            ,specificationRepository.findById(1l).get()));
         RequirementVerification requirementVerification = requirementVerificationRepository
                 .findById(1l).get();
         RequirementPriority requirementPriority =requirementPriorityRepository.findById(1l).get();

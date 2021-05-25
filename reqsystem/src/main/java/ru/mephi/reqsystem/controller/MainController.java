@@ -38,12 +38,8 @@ public class MainController {
     //Страница для работы с требованиями
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/requirements")
-    public String requirements(@RequestParam(required = false, defaultValue = "") String filter,
-                       Model model,
+    public String requirements(  Model model,
                        @AuthenticationPrincipal User user) {
-        model.addAttribute("something", "Hello, again!");
-        model.addAttribute("url", "/main");
-        model.addAttribute("filter", filter);
         return "requirements";
     }
 

@@ -5,4 +5,5 @@ import ru.mephi.reqsystem.domain.requirements.Requirement;
 
 public interface RequirementRepository extends JpaRepository<Requirement, Long> {
     Requirement findByTitle(String title);
+    Requirement findByTitleAndDescription(String title,String description);
 }

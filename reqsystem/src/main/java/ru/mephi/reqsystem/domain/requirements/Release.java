@@ -20,7 +20,7 @@ public class Release {
     @Column(name = "rel_desc")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rel_spc_fk")
     private Specification specification;
 
