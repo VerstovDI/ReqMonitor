@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.sql.Time;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "t_requirements", schema = "system_control_requirements")
@@ -48,9 +49,8 @@ public class Requirement {
     @JoinColumn(name = "req_rel_fk")
     private Release release;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "req_vrf_fk")
-    private RequirementVerification requirementVerification;
+    @OneToMany(mappedBy="requirement")
+    private Set<RequirementVerification> requirementVerifications;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = " req_pr_fk")
@@ -66,7 +66,7 @@ public class Requirement {
     public Requirement(@NotBlank(message = "title cannot be empty") String title, @NotBlank(message = "art_type cannot be empty") String artType,
                        @NotBlank(message = "description cannot be empty") String description, @NotNull Time limitTime,
                        @NotBlank(message = "loc cannot be empty") String loc, @NotBlank(message = "origin cannot be empty") String origin,
-                       @NotNull(message = "date cannot be empty") Date date, Release release, RequirementVerification requirementVerification,
+                       @NotNull(message = "date cannot be empty") Date date, Release release,
                        RequirementPriority requirementPriority, RequirementStatus requirementStatus) {
         this.title = title;
         this.artType = artType;
@@ -76,7 +76,6 @@ public class Requirement {
         this.origin = origin;
         this.date = date;
         this.release = release;
-        this.requirementVerification = requirementVerification;
         this.requirementPriority = requirementPriority;
         this.requirementStatus = requirementStatus;
     }
@@ -153,12 +152,12 @@ public class Requirement {
         this.release = release;
     }
 
-    public RequirementVerification getRequirementVerification() {
-        return requirementVerification;
+    public Set<RequirementVerification> getRequirementVerification() {
+        return requirementVerifications;
     }
 
-    public void setRequirementVerification(RequirementVerification requirementVerification) {
-        this.requirementVerification = requirementVerification;
+    public void setRequirementVerification(Set<RequirementVerification> requirementVerifications) {
+        this.requirementVerifications = requirementVerifications;
     }
 
     public RequirementPriority getRequirementPriority() {
@@ -182,12 +181,12 @@ public class Requirement {
         if (this == o) return true;
         if (!(o instanceof Requirement)) return false;
         Requirement that = (Requirement) o;
-        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(artType, that.artType) && Objects.equals(description, that.description) && Objects.equals(limitTime, that.limitTime) && Objects.equals(loc, that.loc) && Objects.equals(origin, that.origin) && Objects.equals(date, that.date) && Objects.equals(release, that.release) && Objects.equals(requirementVerification, that.requirementVerification) && Objects.equals(requirementPriority, that.requirementPriority) && Objects.equals(requirementStatus, that.requirementStatus);
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(artType, that.artType) && Objects.equals(description, that.description) && Objects.equals(limitTime, that.limitTime) && Objects.equals(loc, that.loc) && Objects.equals(origin, that.origin) && Objects.equals(date, that.date) && Objects.equals(release, that.release) && Objects.equals(requirementVerifications, that.requirementVerifications) && Objects.equals(requirementPriority, that.requirementPriority) && Objects.equals(requirementStatus, that.requirementStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, artType, description, limitTime, loc, origin, date, release, requirementVerification, requirementPriority, requirementStatus);
+        return Objects.hash(id, title, artType, description, limitTime, loc, origin, date, release, requirementVerifications, requirementPriority, requirementStatus);
     }
 
     @Override
@@ -202,7 +201,7 @@ public class Requirement {
                 ", origin='" + origin + '\'' +
                 ", date=" + date +
                 ", release=" + release +
-                ", requirementVerification=" + requirementVerification +
+                ", requirementVerification=" + requirementVerifications +
                 ", requirementPriority=" + requirementPriority +
                 ", requirementStatus=" + requirementStatus +
                 '}';

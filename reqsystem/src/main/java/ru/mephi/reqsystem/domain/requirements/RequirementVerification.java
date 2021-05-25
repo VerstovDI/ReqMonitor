@@ -21,7 +21,17 @@ public class RequirementVerification {
     @JoinColumn(name = "vrf_vt_fk")
     private RequirementVerificationType requirementVerificationType;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "req_fk")
+    private Requirement requirement;
+
     public RequirementVerification() {
+    }
+
+    public RequirementVerification(@NotBlank(message = "Date cannot be empty") Date date, RequirementVerificationType requirementVerificationType, Requirement requirement) {
+        this.date = date;
+        this.requirementVerificationType = requirementVerificationType;
+        this.requirement = requirement;
     }
 
     public Long getId() {
@@ -68,5 +78,13 @@ public class RequirementVerification {
                 ", date=" + date +
                 ", requirementVerificationType=" + requirementVerificationType +
                 '}';
+    }
+
+    public Requirement getRequirement() {
+        return requirement;
+    }
+
+    public void setRequirement(Requirement requirement) {
+        this.requirement = requirement;
     }
 }

@@ -21,6 +21,10 @@ public class RequirementVerificationType {
     public RequirementVerificationType() {
     }
 
+    public RequirementVerificationType(@NotBlank(message = "name cannot be empty") String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

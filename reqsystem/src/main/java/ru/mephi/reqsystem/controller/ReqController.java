@@ -14,6 +14,7 @@ import ru.mephi.reqsystem.domain.administration.User;
 import ru.mephi.reqsystem.domain.requirements.*;
 import ru.mephi.reqsystem.repository.requirements.*;
 import ru.mephi.reqsystem.service.RequirementService;
+import ru.mephi.reqsystem.service.RequirementVerificationService;
 
 import java.sql.Time;
 import java.util.Date;
@@ -25,6 +26,7 @@ import java.util.Date;
 @RequestMapping("/requirements")
 public class ReqController {
     private final RequirementService requirementService;
+    private final RequirementVerificationService requirementVerificationService;
     private final ReleaseRepository releaseRepository;
     private final SpecificationRepository specificationRepository;
     private final RequirementVerificationRepository requirementVerificationRepository;
@@ -33,9 +35,10 @@ public class ReqController {
     Logger logger = LogManager.getLogger(ReqController.class);
 
     @Autowired
-    public ReqController(RequirementService requirementService, ReleaseRepository releaseRepository
+    public ReqController(RequirementService requirementService, RequirementVerificationService requirementVerificationService, ReleaseRepository releaseRepository
             , SpecificationRepository specificationRepository, RequirementVerificationRepository requirementVerificationRepository, RequirementPriorityRepository requirementPriorityRepository, RequirementStatusRepository requirementStatusRepository) {
         this.requirementService = requirementService;
+        this.requirementVerificationService = requirementVerificationService;
         this.releaseRepository = releaseRepository;
         this.specificationRepository = specificationRepository;
         this.requirementVerificationRepository = requirementVerificationRepository;
@@ -54,6 +57,10 @@ public class ReqController {
                                Model model,
                                @AuthenticationPrincipal User user) {
         model.addAttribute("releases",releaseRepository.findAll());
+
+        model.addAttribute("requirementPriorities",requirementPriorityRepository.findAll());
+        model.addAttribute("requirementStatuses",requirementStatusRepository.findAll());
+
         model.addAttribute("url", "/requirements/add");
         model.addAttribute("filter", filter);
         return "requirementsAdd";
@@ -77,12 +84,12 @@ public class ReqController {
         String[] splitTime = limitTimeString.split(":");
         Time limitTime = new Time(Integer.parseInt(splitTime[0]),Integer.parseInt(splitTime[1]),0);
     Date date=new Date();
-        RequirementVerification requirementVerification = requirementVerificationRepository
-                .findById(1l).get();
         RequirementPriority requirementPriority =requirementPriorityRepository.findById(1l).get();
         RequirementStatus requirementStatus=requirementStatusRepository.findById(1l).get();
-        boolean savingStatus = requirementService.addRequirement(new Requirement(title, artType, description, limitTime, loc, origin
-                , date, release, requirementVerification, requirementPriority, requirementStatus));
+        Requirement requirement = new Requirement(title, artType, description, limitTime, loc, origin
+                , date, release, requirementPriority, requirementStatus);
+        boolean savingRequirementStatus = requirementService.addRequirement(requirement);
+        boolean savingVerificationStatus = requirementVerificationService.addNonVerifiedVerificationToRequirements(requirement);
         return "redirect:/requirements";
     }
 

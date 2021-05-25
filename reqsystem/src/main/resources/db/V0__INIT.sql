@@ -100,25 +100,15 @@ CREATE TABLE system_control_requirements.t_releases
     FOREIGN KEY (rel_spc_fk) REFERENCES system_control_requirements.t_specifications (spc_pk)
 );
 insert into system_control_requirements.t_releases (  rel_pk,   rel_spc_fk, rel_ver,rel_desc)
-values (default, 1,1,'First specification release'),Ф
+values (default, 1,1,'First specification release'),
 (default, 2,1,'Second specification release');
 
-CREATE TABLE system_control_requirements.t_verification
-(
-    vrf_pk			serial,
-    vrf_vt_fk		BIGINT,
-    vrf_date		TIMESTAMP,
-    PRIMARY KEY (vrf_pk),
-    FOREIGN KEY (vrf_vt_fk) REFERENCES system_control_requirements.tcl_verification_type (vt_pk)
-);
-insert into system_control_requirements.t_verification (  vrf_pk,  vrf_vt_fk,vrf_date)
-values (default, 1,'2021-05-25 19:10:25-07');
+
 
 CREATE TABLE system_control_requirements.t_requirements
 (
     req_pk			serial,
     req_rel_fk		BIGINT,
-    req_vrf_fk		BIGINT,
     req_pr_fk		BIGINT,
     req_st_fk		BIGINT,
     req_title		varchar(255),
@@ -130,10 +120,21 @@ CREATE TABLE system_control_requirements.t_requirements
     req_date		TIMESTAMP,
     PRIMARY KEY (req_pk),
     FOREIGN KEY (req_rel_fk) REFERENCES system_control_requirements.t_releases (rel_pk),
-    FOREIGN KEY (req_vrf_fk) REFERENCES system_control_requirements.t_verification (vrf_pk),
     FOREIGN KEY (req_pr_fk) REFERENCES system_control_requirements.tcl_priority (pr_pk),
     FOREIGN KEY (req_st_fk) REFERENCES system_control_requirements.tcl_status (st_pk)
 );
+CREATE TABLE system_control_requirements.t_verification
+(
+    vrf_pk			serial,
+    vrf_vt_fk		BIGINT,
+    req_fk		    BIGINT,
+    vrf_date		TIMESTAMP,
+    PRIMARY KEY (vrf_pk),
+    FOREIGN KEY (vrf_vt_fk) REFERENCES system_control_requirements.tcl_verification_type (vt_pk),
+    FOREIGN KEY (req_fk) REFERENCES system_control_requirements.t_requirements (req_pk)
+);
+
+
 
 CREATE TABLE system_control_requirements.t_requirement_links
 (
