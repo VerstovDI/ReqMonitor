@@ -43,6 +43,14 @@ public class MainController {
         return "requirements";
     }
 
+    //Страница для работы с проектами
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/projects")
+    public String projects(  Model model,
+                                 @AuthenticationPrincipal User user) {
+        return "projects";
+    }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/admin-monitor")
     public String adminMonitor(@AuthenticationPrincipal User user) {

@@ -2,6 +2,7 @@ package ru.mephi.reqsystem.domain.requirements;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ import java.util.Objects;
 @Table(name = "t_projects", schema = "system_control_requirements")
 public class Project {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="prj_pk", columnDefinition = "serial")
     private Long id;
 
@@ -17,7 +18,7 @@ public class Project {
     @Column(name="prj_name")
     private String name;
 
-    @NotBlank(message = "date cannot be empty")
+    @NotNull(message = "date cannot be empty")
     @Column(name="prj_date")
     private Date data;
 
@@ -26,6 +27,15 @@ public class Project {
     private String  founder;
 
     public Project() {
+    }
+
+
+    public Project(@NotBlank(message = "Project name cannot be empty") String prjName,
+                       @NotNull(message = "Date cannot be empty") Date date,
+                   @NotBlank(message = "Founder cannot be empty") String founder) {
+        this.name = prjName;
+        this.data = date;
+        this.founder = founder;
     }
 
     public Long getId() {
