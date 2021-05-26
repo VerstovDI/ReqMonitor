@@ -35,7 +35,9 @@ public class MainController {
         return "main";
     }
 
-    //Страница для работы с требованиями
+    /**
+     * Страница для работы с требованиями
+     */
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/requirements")
     public String requirements(  Model model,
@@ -43,38 +45,23 @@ public class MainController {
         return "requirements";
     }
 
+    /**
+     * Страница для просмотра статистики администратором приложения
+     */
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/admin-monitor")
     public String adminMonitor(@AuthenticationPrincipal User user) {
         return "redirect:http://localhost:8080/actuator";
     };
 
-    /*@PostMapping("/main")
-    public String add(
-            @AuthenticationPrincipal User user,
-            @Valid Message message,
-            BindingResult bindingResult,
-            Model model,
-            @RequestParam("file") MultipartFile file,
-            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageble) throws IOException {
-        message.setAuthor(user);
-
-        if (bindingResult.hasErrors()) {
-            Map<String, String> errorsMap = ControllerUtil.getErrors(bindingResult);
-            model.mergeAttributes(errorsMap);
-            model.addAttribute("message", message);
-        } else {
-            saveFile(message, file);
-        }
-
-        model.addAttribute("message", null);
-        Page<MessageDto> page = messageRepo.findAll(pageble, user);
-        model.addAttribute("page", page);
-        model.addAttribute("url", "/main");
-        Iterable<Message> messageRepoAll = messageRepo.findAll();
-        model.addAttribute("messages", messageRepoAll);
-        return "main";
-    }*/
+    /**
+     * Страница для перехода в раздел "Projects"
+     */
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/projects")
+    public String projects(@AuthenticationPrincipal User user) {
+        return "projects";
+    };
 
     // Мб основа этой штуки понадобится потом
     /*private void saveFile(Message message, MultipartFile file) throws IOException {
