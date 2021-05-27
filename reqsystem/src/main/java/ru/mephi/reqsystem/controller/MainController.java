@@ -35,13 +35,16 @@ public class MainController {
         return "main";
     }
 
-    //Страница для работы с требованиями
+    /**
+     * Страница для работы с требованиями
+     */
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/requirements")
     public String requirements(  Model model,
                        @AuthenticationPrincipal User user) {
         return "requirements";
     }
+
 
     //Страница для работы с проектами
     @PreAuthorize("isAuthenticated()")
@@ -71,32 +74,6 @@ public class MainController {
         return "redirect:http://localhost:8080/actuator";
     };
 
-    /*@PostMapping("/main")
-    public String add(
-            @AuthenticationPrincipal User user,
-            @Valid Message message,
-            BindingResult bindingResult,
-            Model model,
-            @RequestParam("file") MultipartFile file,
-            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageble) throws IOException {
-        message.setAuthor(user);
-
-        if (bindingResult.hasErrors()) {
-            Map<String, String> errorsMap = ControllerUtil.getErrors(bindingResult);
-            model.mergeAttributes(errorsMap);
-            model.addAttribute("message", message);
-        } else {
-            saveFile(message, file);
-        }
-
-        model.addAttribute("message", null);
-        Page<MessageDto> page = messageRepo.findAll(pageble, user);
-        model.addAttribute("page", page);
-        model.addAttribute("url", "/main");
-        Iterable<Message> messageRepoAll = messageRepo.findAll();
-        model.addAttribute("messages", messageRepoAll);
-        return "main";
-    }*/
 
     // Мб основа этой штуки понадобится потом
     /*private void saveFile(Message message, MultipartFile file) throws IOException {

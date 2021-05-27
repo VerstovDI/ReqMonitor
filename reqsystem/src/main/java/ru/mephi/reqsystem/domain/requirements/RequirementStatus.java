@@ -19,6 +19,10 @@ public class RequirementStatus {
     public RequirementStatus() {
     }
 
+    public RequirementStatus(@NotBlank(message = "name cannot be empty") String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

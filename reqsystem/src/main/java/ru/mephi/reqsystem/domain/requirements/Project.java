@@ -30,11 +30,11 @@ public class Project {
     }
 
 
-    public Project(@NotBlank(message = "Project name cannot be empty") String prjName,
-                       @NotNull(message = "Date cannot be empty") Date date,
-                   @NotBlank(message = "Founder cannot be empty") String founder) {
-        this.name = prjName;
-        this.data = date;
+    public Project(@NotBlank(message = "name cannot be empty") String name,
+             @NotNull(message = "date cannot be empty") Date data,
+                   @NotBlank(message = "founder name cannot be empty") String founder) {
+        this.name = name;
+        this.data = data;
         this.founder = founder;
     }
 

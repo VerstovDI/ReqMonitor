@@ -14,6 +14,7 @@ import ru.mephi.reqsystem.domain.administration.User;
 import ru.mephi.reqsystem.domain.requirements.*;
 import ru.mephi.reqsystem.repository.requirements.*;
 import ru.mephi.reqsystem.service.RequirementService;
+import ru.mephi.reqsystem.service.RequirementStatusService;
 import ru.mephi.reqsystem.service.RequirementVerificationService;
 
 import java.sql.Time;
@@ -27,6 +28,7 @@ import java.util.Date;
 public class ReqController {
     private final RequirementService requirementService;
     private final RequirementVerificationService requirementVerificationService;
+    private final RequirementStatusService requirementStatusService;
     private final ReleaseRepository releaseRepository;
     private final SpecificationRepository specificationRepository;
     private final RequirementVerificationRepository requirementVerificationRepository;
@@ -35,20 +37,24 @@ public class ReqController {
     Logger logger = LogManager.getLogger(ReqController.class);
 
     @Autowired
-    public ReqController(RequirementService requirementService, RequirementVerificationService requirementVerificationService, ReleaseRepository releaseRepository
-            , SpecificationRepository specificationRepository, RequirementVerificationRepository requirementVerificationRepository, RequirementPriorityRepository requirementPriorityRepository, RequirementStatusRepository requirementStatusRepository) {
+    public ReqController(RequirementService requirementService,
+                         RequirementVerificationService requirementVerificationService,
+                         RequirementStatusService requirementStatusService,
+                         ReleaseRepository releaseRepository,
+                         SpecificationRepository specificationRepository,
+                         RequirementVerificationRepository requirementVerificationRepository,
+                         RequirementPriorityRepository requirementPriorityRepository,
+                         RequirementStatusRepository requirementStatusRepository)
+    {
         this.requirementService = requirementService;
         this.requirementVerificationService = requirementVerificationService;
+        this.requirementStatusService = requirementStatusService;
         this.releaseRepository = releaseRepository;
         this.specificationRepository = specificationRepository;
         this.requirementVerificationRepository = requirementVerificationRepository;
         this.requirementPriorityRepository = requirementPriorityRepository;
         this.requirementStatusRepository = requirementStatusRepository;
     }
-    // Тут подвязываем требуемые сервисы, репозитории и т.д.
-
-    // пишем методы по типу public String ...(@RequestParam или просто model)
-    // Аннотируем методы в зависимости от их назначения. GetMapping/PostMapping/....
 
     //Страница для работы с требованиями
     @PreAuthorize("isAuthenticated()")
@@ -56,11 +62,9 @@ public class ReqController {
     public String requirements(@RequestParam(required = false, defaultValue = "") String filter,
                                Model model,
                                @AuthenticationPrincipal User user) {
-        model.addAttribute("releases", releaseRepository.findAll());
 
+        model.addAttribute("releases",releaseRepository.findAll());
         model.addAttribute("requirementPriorities",requirementPriorityRepository.findAll());
-        model.addAttribute("requirementStatuses",requirementStatusRepository.findAll());
-
         model.addAttribute("url", "/requirements/add");
         model.addAttribute("filter", filter);
         return "requirementsAdd";
@@ -78,16 +82,16 @@ public class ReqController {
             @RequestParam(name = "origin")  String origin,
             @RequestParam(name = "limitTime") String limitTimeString,
             @RequestParam(name = "selectedRelease") Release release,
+            @RequestParam(name = "requirementPriority") RequirementPriority requirementPriority,
             Model model
 
     ) {
         String[] splitTime = limitTimeString.split(":");
         Time limitTime = new Time(Integer.parseInt(splitTime[0]),Integer.parseInt(splitTime[1]),0);
-    Date date=new Date();
-        RequirementPriority requirementPriority =requirementPriorityRepository.findById(1l).get();
-        RequirementStatus requirementStatus=requirementStatusRepository.findById(1l).get();
+        Date date=new Date();
+        RequirementStatus newRequirementStatus= requirementStatusService.getNewRequirementStatus();
         Requirement requirement = new Requirement(title, artType, description, limitTime, loc, origin
-                , date, release, requirementPriority, requirementStatus);
+                , date, release, requirementPriority, newRequirementStatus);
         boolean savingRequirementStatus = requirementService.addRequirement(requirement);
         boolean savingVerificationStatus = requirementVerificationService.addNonVerifiedVerificationToRequirements(requirement);
         return "redirect:/requirements";
