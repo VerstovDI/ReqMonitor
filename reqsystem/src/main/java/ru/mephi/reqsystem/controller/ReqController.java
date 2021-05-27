@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.mephi.reqsystem.domain.administration.User;
-import ru.mephi.reqsystem.domain.requirements.*;
+import ru.mephi.reqsystem.domain.requirements.Release;
+import ru.mephi.reqsystem.domain.requirements.Requirement;
+import ru.mephi.reqsystem.domain.requirements.RequirementPriority;
+import ru.mephi.reqsystem.domain.requirements.RequirementStatus;
 import ru.mephi.reqsystem.repository.requirements.*;
 import ru.mephi.reqsystem.service.RequirementService;
 import ru.mephi.reqsystem.service.RequirementStatusService;
@@ -29,6 +32,8 @@ public class ReqController {
     private final RequirementService requirementService;
     private final RequirementVerificationService requirementVerificationService;
     private final RequirementStatusService requirementStatusService;
+    private final RequirementRepository requirementRepository;
+
     private final ReleaseRepository releaseRepository;
     private final SpecificationRepository specificationRepository;
     private final RequirementVerificationRepository requirementVerificationRepository;
@@ -40,7 +45,7 @@ public class ReqController {
     public ReqController(RequirementService requirementService,
                          RequirementVerificationService requirementVerificationService,
                          RequirementStatusService requirementStatusService,
-                         ReleaseRepository releaseRepository,
+                         RequirementRepository requirementRepository, ReleaseRepository releaseRepository,
                          SpecificationRepository specificationRepository,
                          RequirementVerificationRepository requirementVerificationRepository,
                          RequirementPriorityRepository requirementPriorityRepository,
@@ -49,6 +54,7 @@ public class ReqController {
         this.requirementService = requirementService;
         this.requirementVerificationService = requirementVerificationService;
         this.requirementStatusService = requirementStatusService;
+        this.requirementRepository = requirementRepository;
         this.releaseRepository = releaseRepository;
         this.specificationRepository = specificationRepository;
         this.requirementVerificationRepository = requirementVerificationRepository;
@@ -98,6 +104,17 @@ public class ReqController {
     }
 
 
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/showAll")
+    public String showAllRequirements(
+            @AuthenticationPrincipal User user,
+            Model model
+
+    ) {
+      model.addAttribute("requirements",requirementRepository.findAll());
+        return "requirementsShowAll";
+    }
     /*    @PreAuthorize("isAuthenticated()")    TODO не распознает маппинг
     @PostMapping("/addReq")
     public String addRequirement (
