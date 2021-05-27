@@ -4,6 +4,8 @@
 <@c.page>
     <div><h1>Hello from releases page!</h1></div>
     Список действий
+    <br/>
     <td><a href="/releases/add">add new release</a></td>
+    <br/>
     <td><a href="/releases/show">show all releases</a></td>
 </@c.page>

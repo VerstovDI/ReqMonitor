@@ -13,14 +13,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/main">Projects</a>
-            </li>
-            <#if user??>
-                <li class="nav-item">
-                    <a class="nav-link" href="/user-messages/${currentUserId}">My projects</a>
-                </li>
-            </#if>
+
             <#if isAdmin>
                 <li class="nav-item">
                     <a class="nav-link" href="/user">User list</a>
@@ -34,11 +27,7 @@
                     <a class="nav-link" href="/user/profile">Profile</a>
                 </li>
             </#if>
-            <#if user?? && name!="unknown" && name != "Guest">
-                <li class="nav-item">
-                    <a class="nav-link" href="/requirements">Requirements</a>
-                </li>
-            </#if>
+
             <#if user?? && name!="unknown" && name != "Guest">
                 <li class="nav-item">
                     <a class="nav-link" href="/projects">Projects</a>
@@ -52,6 +41,11 @@
             <#if user?? && name!="unknown" && name != "Guest">
                 <li class="nav-item">
                     <a class="nav-link" href="/releases">Releases</a>
+                </li>
+            </#if>
+            <#if user?? && name!="unknown" && name != "Guest">
+                <li class="nav-item">
+                    <a class="nav-link" href="/requirements">Requirements</a>
                 </li>
             </#if>
         </ul>
