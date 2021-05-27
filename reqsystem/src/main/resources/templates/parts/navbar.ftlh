@@ -39,6 +39,21 @@
                     <a class="nav-link" href="/requirements">Requirements</a>
                 </li>
             </#if>
+            <#if user?? && name!="unknown" && name != "Guest">
+                <li class="nav-item">
+                    <a class="nav-link" href="/projects">Projects</a>
+                </li>
+            </#if>
+            <#if user?? && name!="unknown" && name != "Guest">
+                <li class="nav-item">
+                    <a class="nav-link" href="/specs">Specifications</a>
+                </li>
+            </#if>
+            <#if user?? && name!="unknown" && name != "Guest">
+                <li class="nav-item">
+                    <a class="nav-link" href="/releases">Releases</a>
+                </li>
+            </#if>
         </ul>
         <div class="navbar-text mr-3">
             <#if user??>

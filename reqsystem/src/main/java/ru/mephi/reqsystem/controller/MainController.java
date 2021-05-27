@@ -45,23 +45,35 @@ public class MainController {
         return "requirements";
     }
 
-    /**
-     * Страница для просмотра статистики администратором приложения
-     */
+
+    //Страница для работы с проектами
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/projects")
+    public String projects(  Model model,
+                                 @AuthenticationPrincipal User user) {
+        return "projects";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/specs")
+    public String specs(  Model model,
+                             @AuthenticationPrincipal User user) {
+        return "specs";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/releases")
+    public String releases(  Model model,
+                          @AuthenticationPrincipal User user) {
+        return "releases";
+    }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/admin-monitor")
     public String adminMonitor(@AuthenticationPrincipal User user) {
         return "redirect:http://localhost:8080/actuator";
     };
 
-    /**
-     * Страница для перехода в раздел "Projects"
-     */
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/projects")
-    public String projects(@AuthenticationPrincipal User user) {
-        return "projects";
-    };
 
     // Мб основа этой штуки понадобится потом
     /*private void saveFile(Message message, MultipartFile file) throws IOException {

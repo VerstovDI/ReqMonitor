@@ -29,8 +29,9 @@ public class Project {
     public Project() {
     }
 
-    public Project(@NotBlank(message = "name cannot be empty") String name
-            , @NotNull(message = "date cannot be empty") Date data,
+
+    public Project(@NotBlank(message = "name cannot be empty") String name,
+             @NotNull(message = "date cannot be empty") Date data,
                    @NotBlank(message = "founder name cannot be empty") String founder) {
         this.name = name;
         this.data = data;
