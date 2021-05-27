@@ -2,6 +2,7 @@ package ru.mephi.reqsystem.domain.requirements;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +13,7 @@ public class Specification {
     @Column(name = "spc_pk", columnDefinition = "serial")
     private Long id;
 
-    @NotBlank(message = "version cannot be empty")
+    @NotNull(message = "version cannot be empty")
     @Column(name = "spc_ver")
     private Integer version;
 
@@ -25,6 +26,12 @@ public class Specification {
     private Project project;
 
     public Specification() {
+    }
+
+    public Specification(@NotBlank(message = "version cannot be empty") Integer version, @NotBlank(message = "description cannot be empty") String description, Project project) {
+        this.version = version;
+        this.description = description;
+        this.project = project;
     }
 
     public Long getId() {

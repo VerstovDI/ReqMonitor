@@ -1,9 +1,8 @@
 <#import "parts/common.ftlh" as c>
 
-<!-- Главная страница сайта -->
 <@c.page>
-    <div><h1>Hello from requirements page!</h1></div>
-    Список действий
-    <td><a href="/requirements/add">add new requirement</a></td>
-    <td><a href="/requirements/showAll">show all requirements</a></td>
+    <div><h1>Requirements page!</h1></div>
+<td><a href="/requirements/add">Add new requirement</a></td>
+<td><a href="/requirements/showAll">Show all requirements</a></td>
+<td><a href="/requirements/change">Change requirement</a></td>
 </@c.page>

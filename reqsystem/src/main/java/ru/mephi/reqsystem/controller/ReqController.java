@@ -68,9 +68,9 @@ public class ReqController {
     public String requirements(@RequestParam(required = false, defaultValue = "") String filter,
                                Model model,
                                @AuthenticationPrincipal User user) {
+
         model.addAttribute("releases",releaseRepository.findAll());
         model.addAttribute("requirementPriorities",requirementPriorityRepository.findAll());
-
         model.addAttribute("url", "/requirements/add");
         model.addAttribute("filter", filter);
         return "requirementsAdd";

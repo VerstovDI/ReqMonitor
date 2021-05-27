@@ -58,6 +58,7 @@ public class UserService implements UserDetailsService {
                 .map(Role::name)
                 .collect(Collectors.toSet());
         user.getRoles().clear();
+
         for (String key : form.keySet()) {
             if (roles.contains(key)) {
                 user.getRoles().add(Role.valueOf(key));
@@ -74,14 +75,4 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
 
     }
-
-    /*public void subscribe(User currentUser, User user) {
-        user.getSubscribers().add(currentUser);
-        userRepository.save(user);
-    }
-
-    public void unsubscribe(User currentUser, User user) {
-        user.getSubscribers().remove(currentUser);
-        userRepository.save(user);
-    }*/
 }
