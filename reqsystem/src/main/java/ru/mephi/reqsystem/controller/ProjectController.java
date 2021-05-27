@@ -23,7 +23,7 @@ import java.util.List;
 public class ProjectController {
 
     private final ProjectsService projectsService;
-    private final List<Project> projects;
+    private List<Project> projects;
 
     @Autowired
     public ProjectController(ProjectsService projectsService) {
@@ -43,10 +43,10 @@ public class ProjectController {
     }
 
     @RequestMapping(value = { "/show" }, method = RequestMethod.GET)
-    public String personList(Model model) {
+    public String projectsList(Model model) {
 
+        projects = projectsService.showProjects();
         model.addAttribute("projects", projects);
-        System.out.println(projects);
 
         return "showAllProjects";
     }

@@ -7,14 +7,16 @@
                 <table border="1">
                     <tr>
                         <th>id</th>
-                        <th>Name</th>
-                        <th>Founder</th>
+                        <th>Version</th>
+                        <th>Description</th>
+                        <th>Specification id</th>
                     </tr>
-                    <#list projects as project>
+                    <#list releases as release>
                         <tr>
-                            <th>${project.id}</th>
-                            <th>${project.name}</th>
-                            <th>${project.founder}</th>
+                            <th>${release.id}</th>
+                            <th>${release.version}</th>
+                            <th>${release.description}</th>
+                            <th>${release.specification.id}</th>
                         </tr>
                     </#list>
                 </table>

@@ -5,5 +5,5 @@ import ru.mephi.reqsystem.domain.requirements.Project;
 import ru.mephi.reqsystem.domain.requirements.Specification;
 
 public interface SpecificationRepository extends JpaRepository<Specification, Long> {
-
+    Specification findByVersionAndProject(Integer version, Project project);
 }

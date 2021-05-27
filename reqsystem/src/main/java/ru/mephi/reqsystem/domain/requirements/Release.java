@@ -2,17 +2,18 @@ package ru.mephi.reqsystem.domain.requirements;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
 @Table(name = "t_releases", schema = "system_control_requirements")
 public class Release {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rel_pk", columnDefinition = "serial")
     private Long id;
 
-    @NotBlank(message = "version cannot be empty")
+    @NotNull(message = "version cannot be empty")
     @Column(name = "rel_ver")
     private Integer version;
 
