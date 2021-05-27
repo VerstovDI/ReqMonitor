@@ -5,12 +5,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.mephi.reqsystem.domain.administration.User;
 import ru.mephi.reqsystem.domain.requirements.*;
+import ru.mephi.reqsystem.repository.requirements.ReleaseRepository;
+import ru.mephi.reqsystem.service.ReleaseService;
 import ru.mephi.reqsystem.service.SpecService;
 import java.util.List;
 
@@ -22,12 +21,15 @@ import java.util.List;
 public class SpecController {
 
     private final SpecService specService;
+    private final ReleaseService releaseService;
     private List<Specification> specs;
+    private List<Release> releases;
 
     @Autowired
-    public SpecController(SpecService specService) {
+    public SpecController(SpecService specService, ReleaseService releaseService) {
         this.specService = specService;
         this.specs = specService.showSpecifications();
+        this.releaseService = releaseService;
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -66,6 +68,20 @@ public class SpecController {
         model.addAttribute("specs", specs);
 
         return "showAllSpecs";
+    }
+
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/showParticularSpec/{spec}")
+    public String showParticularSpec (
+            @AuthenticationPrincipal User user,
+            @PathVariable Specification spec,
+            Model model
+    ) {
+
+        releases = releaseService.showReleasesForSpec(spec);
+        model.addAttribute("releases", releases);
+        return "showParticularSpec";
     }
 
 }

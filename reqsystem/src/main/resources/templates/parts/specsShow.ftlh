@@ -6,17 +6,15 @@
             <div class="col-sm-6">
                 <table border="1">
                     <tr>
-                        <th>id</th>
                         <th>Version</th>
                         <th>Description</th>
-                        <th>Project id</th>
+                        <th>Actions</th>
                     </tr>
                     <#list specs as spec>
                         <tr>
-                            <th>${spec.id}</th>
                             <th>${spec.version}</th>
                             <th>${spec.description}</th>
-                            <th>${spec.project.id}</th>
+                            <th><a href="/specs/showParticularSpec/${spec.id}">Show</a></th>
                         </tr>
                     </#list>
                 </table>

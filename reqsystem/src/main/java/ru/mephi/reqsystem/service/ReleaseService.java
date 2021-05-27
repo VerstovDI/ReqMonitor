@@ -39,4 +39,8 @@ public class ReleaseService {
     public List<Release> showReleases() {
         return releaseRepository.findAll();
     }
+
+    public List<Release> showReleasesForSpec(Specification specification) {
+        return releaseRepository.findBySpecification(specification);
+    }
 }

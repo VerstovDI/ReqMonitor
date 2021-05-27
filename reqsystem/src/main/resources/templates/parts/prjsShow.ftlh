@@ -6,15 +6,15 @@
             <div class="col-sm-6">
                 <table border="1">
                     <tr>
-                        <th>id</th>
                         <th>Name</th>
                         <th>Founder</th>
+                        <th>Actions</th>
                     </tr>
                     <#list projects as project>
                         <tr>
-                            <th>${project.id}</th>
                             <th>${project.name}</th>
                             <th>${project.founder}</th>
+                            <th><a href="/projects/showParticularProject/${project.id}">Show</a></th>
                         </tr>
                     </#list>
                 </table>

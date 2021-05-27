@@ -5,13 +5,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.mephi.reqsystem.domain.administration.User;
 import ru.mephi.reqsystem.domain.requirements.*;
 import ru.mephi.reqsystem.service.ProjectsService;
+import ru.mephi.reqsystem.service.SpecService;
+
 import java.util.Date;
 import java.util.List;
 
@@ -23,12 +22,15 @@ import java.util.List;
 public class ProjectController {
 
     private final ProjectsService projectsService;
+    private final SpecService specService;
     private List<Project> projects;
+    private List<Specification> specs;
 
     @Autowired
-    public ProjectController(ProjectsService projectsService) {
+    public ProjectController(ProjectsService projectsService, SpecService specService) {
         this.projectsService = projectsService;
         this.projects = projectsService.showProjects();
+        this.specService = specService;
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -68,6 +70,19 @@ public class ProjectController {
 
         boolean savingProject = projectsService.addProject(project);
         return "redirect:/projects";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/showParticularProject/{project}")
+    public String showParticularProject (
+            @AuthenticationPrincipal User user,
+            @PathVariable Project project,
+            Model model
+    ) {
+
+        specs = specService.showSpecsForPrj(project);
+        model.addAttribute("specs", specs);
+        return "showParticularProject";
     }
 
 }

@@ -39,4 +39,8 @@ public class SpecService {
     public List<Specification> showSpecifications() {
         return specificationRepository.findAll();
     }
+
+    public List<Specification> showSpecsForPrj(Project project) {
+        return specificationRepository.findByProject(project);
+    }
 }
