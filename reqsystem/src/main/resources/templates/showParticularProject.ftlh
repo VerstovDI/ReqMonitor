@@ -2,9 +2,10 @@
 <#import "parts/specsShow.ftlh" as s>
 <!-- Главная страница сайта -->
 <@c.page>
-    <div><h1>Hello from show project page!</h1></div>
-    <h3>Project name: ${project.name}</h3>
-    <br/>
-    <h3>Project founder: ${project.founder}</h3>
+    <div><h1>Project page!</h1></div>
+    <h5>Project name: ${project.name}</h5>
+    <h5>Project founder: ${project.founder}</h5>
+    <h5><a href="/specs/add/${project.id}">Add new specification</a></h5>
+    <h5>List project's specifications: </h5>
     <@s.show/>
 </@c.page>

@@ -8,11 +8,13 @@
                     <tr>
                         <th>Version</th>
                         <th>Description</th>
+                        <th>Actions</th>
                     </tr>
                     <#list releases as release>
                         <tr>
                             <th>${release.version}</th>
                             <th>${release.description}</th>
+                            <th><a href="/releases/showParticularRelease/${release.id}">Show</a></th>
                         </tr>
                     </#list>
                 </table>

@@ -1,11 +1,10 @@
 <#import "parts/common.ftlh" as c>
+<#import "parts/releasesShow.ftlh" as r>
 
 <!-- Главная страница сайта -->
 <@c.page>
-    <div><h1>Hello from releases page!</h1></div>
-    Список действий
+    <div><h1>Releases page!</h1></div>
     <br/>
-    <td><a href="/releases/add">add new release</a></td>
-    <br/>
-    <td><a href="/releases/show">show all releases</a></td>
+    <h4>List releases: </h4>
+    <@r.show/>
 </@c.page>

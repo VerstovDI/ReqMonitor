@@ -85,19 +85,6 @@
             </div>
         </div>
 
-
-        <div>
-            <h7>release: version, description, specification.version, specification.description</h7>
-        </div>
-        <div class="form-group row">
-            <select class="custom-select col-md-12-sm-6" name="selectedRelease">
-                <#list releases! as release>
-                    <option value="${release.id}">${release.version}, ${release.description}
-                        , ${release.specification.version}, ${release.specification.description}</option>
-                </#list>
-            </select>
-        </div>
-
         <div>
             <h7>Requirement Priority: </h7>
         </div>
