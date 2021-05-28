@@ -24,6 +24,7 @@ public class SpecController {
     private final ReleaseService releaseService;
     private List<Specification> specs;
     private List<Release> releases;
+    private Project project;
 
     @Autowired
     public SpecController(SpecService specService, ReleaseService releaseService) {
@@ -33,13 +34,11 @@ public class SpecController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/add")
-    public String specifications(@RequestParam(required = false, defaultValue = "") String filter,
+    @GetMapping("/add/{project}")
+    public String specifications(@PathVariable Project project,
                                Model model,
                                @AuthenticationPrincipal User user) {
-
-        model.addAttribute("url", "/specs/add");
-        model.addAttribute("filter", filter);
+        this.project = project;
         return "specAdd";
     }
 
@@ -50,26 +49,13 @@ public class SpecController {
             @AuthenticationPrincipal User user,
             @RequestParam(name = "version") Integer version,
             @RequestParam(name = "description") String description,
-            @RequestParam(name = "prjId") Long prjId,
             Model model
 
     ) {
-        Project project = new Project();
-        project.setId(prjId);
         Specification specification = new Specification(version, description, project);
         boolean savingSpecStatus = specService.addSpec(specification);
-        return "redirect:/specs";
+        return "redirect:/projects/showParticularProject/" + project.getId();
     }
-
-    @RequestMapping(value = { "/show" }, method = RequestMethod.GET)
-    public String specsList(Model model) {
-
-        specs = specService.showSpecifications();
-        model.addAttribute("specs", specs);
-
-        return "showAllSpecs";
-    }
-
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/showParticularSpec/{spec}")
@@ -81,6 +67,7 @@ public class SpecController {
 
         releases = releaseService.showReleasesForSpec(spec);
         model.addAttribute("releases", releases);
+        model.addAttribute("project", spec.getProject());
         return "showParticularSpec";
     }
 

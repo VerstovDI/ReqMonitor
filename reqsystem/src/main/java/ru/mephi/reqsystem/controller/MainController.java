@@ -1,5 +1,6 @@
 package ru.mephi.reqsystem.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -7,6 +8,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.mephi.reqsystem.domain.administration.User;
+import ru.mephi.reqsystem.domain.requirements.Project;
+import ru.mephi.reqsystem.domain.requirements.Release;
+import ru.mephi.reqsystem.domain.requirements.Requirement;
+import ru.mephi.reqsystem.domain.requirements.Specification;
+import ru.mephi.reqsystem.service.ProjectsService;
+import ru.mephi.reqsystem.service.ReleaseService;
+import ru.mephi.reqsystem.service.RequirementService;
+import ru.mephi.reqsystem.service.SpecService;
+
+import java.util.List;
 
 /**
  * Основной контроллер, обслуживающий главную страницу приложения.
@@ -20,6 +31,20 @@ public class MainController {
     // Аннотируем методы в зависимости от их назначения. GetMapping/PostMapping/....
 
     // Начальная приветственная страница
+
+    private final ProjectsService projectsService;
+    private final SpecService specService;
+    private final ReleaseService releaseService;
+    private final RequirementService requirementService;
+
+    @Autowired
+    public MainController(ProjectsService projectsService, SpecService specService, ReleaseService releaseService, RequirementService requirementService) {
+        this.projectsService = projectsService;
+        this.specService = specService;
+        this.releaseService = releaseService;
+        this.requirementService = requirementService;
+    }
+
     @GetMapping("/")
     public String greeting(Model model) {
         return "greeting";
@@ -51,6 +76,8 @@ public class MainController {
     @GetMapping("/projects")
     public String projects(  Model model,
                                  @AuthenticationPrincipal User user) {
+        List<Project> projects = projectsService.showProjects();
+        model.addAttribute("projects", projects);
         return "projects";
     }
 
@@ -58,6 +85,8 @@ public class MainController {
     @GetMapping("/specs")
     public String specs(  Model model,
                              @AuthenticationPrincipal User user) {
+        List<Specification> specifications = specService.showSpecifications();
+        model.addAttribute("specs", specifications);
         return "specs";
     }
 
@@ -65,6 +94,8 @@ public class MainController {
     @GetMapping("/releases")
     public String releases(  Model model,
                           @AuthenticationPrincipal User user) {
+        List<Release> releases = releaseService.showReleases();
+        model.addAttribute("releases", releases);
         return "releases";
     }
 

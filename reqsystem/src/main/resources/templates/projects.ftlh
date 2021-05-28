@@ -2,11 +2,9 @@
 <#import "parts/prjsShow.ftlh" as r>
 
 <@c.page>
-    <div><h1>Hello from projects page!</h1></div>
-    <h4>Список действий: </h4>
-    <br/>
-    <td><a href="/projects/add">add new project</a></td>
-    <br/>
-    <td><a href="/projects/show">show all projects</a></td>
+    <div><h1>Projects page!</h1></div>
+    <h4><a href="/projects/add">Add new project</a></h4>
+    <h4>List projects: </h4>
+    <@r.show/>
 
 </@c.page>

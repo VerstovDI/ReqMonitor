@@ -8,13 +8,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.mephi.reqsystem.domain.administration.User;
-import ru.mephi.reqsystem.domain.requirements.Release;
-import ru.mephi.reqsystem.domain.requirements.Requirement;
-import ru.mephi.reqsystem.domain.requirements.RequirementPriority;
-import ru.mephi.reqsystem.domain.requirements.RequirementStatus;
+import ru.mephi.reqsystem.domain.requirements.*;
 import ru.mephi.reqsystem.repository.requirements.*;
 import ru.mephi.reqsystem.service.RequirementService;
 import ru.mephi.reqsystem.service.RequirementStatusService;
@@ -27,8 +25,9 @@ import java.util.Date;
  * Контроллер для работы с требованиями.
  */
 @Controller
-@RequestMapping("/req")
-public class ReqController {
+@RequestMapping("/requirements")
+public class ReqControllerTwo {
+
     private final RequirementService requirementService;
     private final RequirementVerificationService requirementVerificationService;
     private final RequirementStatusService requirementStatusService;
@@ -41,8 +40,10 @@ public class ReqController {
     private final RequirementStatusRepository requirementStatusRepository;
     Logger logger = LogManager.getLogger(ReqController.class);
 
+    private Release release;
+
     @Autowired
-    public ReqController(RequirementService requirementService,
+    public ReqControllerTwo(RequirementService requirementService,
                          RequirementVerificationService requirementVerificationService,
                          RequirementStatusService requirementStatusService,
                          RequirementRepository requirementRepository, ReleaseRepository releaseRepository,
@@ -64,15 +65,14 @@ public class ReqController {
 
     //Страница для работы с требованиями
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/add")
-    public String requirements(@RequestParam(required = false, defaultValue = "") String filter,
+    @GetMapping("/add/{release}")
+    public String requirements(@PathVariable Release release,
                                Model model,
                                @AuthenticationPrincipal User user) {
 
+        this.release = release;
         model.addAttribute("releases",releaseRepository.findAll());
         model.addAttribute("requirementPriorities",requirementPriorityRepository.findAll());
-        model.addAttribute("url", "/requirements/add");
-        model.addAttribute("filter", filter);
         return "requirementsAdd";
     }
 
@@ -87,7 +87,6 @@ public class ReqController {
             @RequestParam(name = "loc") String loc,
             @RequestParam(name = "origin")  String origin,
             @RequestParam(name = "limitTime") String limitTimeString,
-            @RequestParam(name = "selectedRelease") Release release,
             @RequestParam(name = "requirementPriority") RequirementPriority requirementPriority,
             Model model
 
@@ -99,8 +98,10 @@ public class ReqController {
         Requirement requirement = new Requirement(title, artType, description, limitTime, loc, origin
                 , date, release, requirementPriority, newRequirementStatus);
         boolean savingRequirementStatus = requirementService.addRequirement(requirement);
-        boolean savingVerificationStatus = requirementVerificationService.addNonVerifiedVerificationToRequirements(requirement);
-        return "redirect:/requirements";
+        if (savingRequirementStatus) {
+            boolean savingVerificationStatus = requirementVerificationService.addNonVerifiedVerificationToRequirements(requirement);
+        }
+        return "redirect:/releases/showParticularRelease/" + release.getId();
     }
 
 
@@ -112,7 +113,7 @@ public class ReqController {
             Model model
 
     ) {
-      model.addAttribute("requirements",requirementRepository.findAll());
+        model.addAttribute("requirements",requirementRepository.findAll());
         return "requirementsShowAll";
     }
     /*    @PreAuthorize("isAuthenticated()")    TODO не распознает маппинг

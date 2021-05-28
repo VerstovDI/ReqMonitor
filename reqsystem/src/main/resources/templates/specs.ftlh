@@ -1,11 +1,9 @@
 <#import "parts/common.ftlh" as c>
+<#import "parts/specsShow.ftlh" as r>
 
 <!-- Главная страница сайта -->
 <@c.page>
-    <div><h1>Hello from specifications page!</h1></div>
-    Список действий
-    <br/>
-    <td><a href="/specs/add">add new specification</a></td>
-    <br/>
-    <td><a href="/specs/show">show all specifications</a></td>
+    <div><h1>Specifications page</h1></div>
+    <h4>List specifications: </h4>
+    <@r.show/>
 </@c.page>

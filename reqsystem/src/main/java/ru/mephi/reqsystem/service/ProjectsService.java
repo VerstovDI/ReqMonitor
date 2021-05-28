@@ -4,6 +4,7 @@ import jdk.internal.dynalink.linker.LinkerServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.mephi.reqsystem.domain.requirements.Project;
+import ru.mephi.reqsystem.domain.requirements.Specification;
 import ru.mephi.reqsystem.repository.requirements.ProjectRepository;
 
 import java.util.List;

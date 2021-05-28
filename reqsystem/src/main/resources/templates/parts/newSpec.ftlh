@@ -32,20 +32,6 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Id of project:</label>
-            <div class="col-sm-6">
-                <input type="number" name="prjId"
-                       class="form-control ${(titleError??)?string('is-invalid','')}"
-                       placeholder="Project id"/>
-                <#if prjNameError??>
-                    <div class="invalid-feedback">
-                        ${prjIdError}
-                    </div>
-                </#if>
-            </div>
-        </div>
-
         <input type="submit" value="Submit">
 
     </form>

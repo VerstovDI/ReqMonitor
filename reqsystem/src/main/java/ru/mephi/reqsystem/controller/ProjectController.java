@@ -44,15 +44,6 @@ public class ProjectController {
         return "projectsAdd";
     }
 
-    @RequestMapping(value = { "/show" }, method = RequestMethod.GET)
-    public String projectsList(Model model) {
-
-        projects = projectsService.showProjects();
-        model.addAttribute("projects", projects);
-
-        return "showAllProjects";
-    }
-
     //TODO смотреть login /RegistrtionContoller
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/addProject")
